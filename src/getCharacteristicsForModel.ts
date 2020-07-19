@@ -1,6 +1,7 @@
 import type { Logger, Service } from 'homebridge'
 
 import type { HomebridgeLgThinqPlatform } from './platform'
+import type { ThinqPlatformType } from './thinq/apiTypes'
 
 import ActiveCharacteristic from './characteristic/activeCharacteristic'
 import AbstractCharacteristic from './characteristic/abstractCharacteristic'
@@ -17,50 +18,82 @@ export default function getCharacteristicsForModel(
   service: Service,
   deviceId: string,
   log: Logger,
+  thinqPlatform: ThinqPlatformType,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Array<AbstractCharacteristic<any, any, any>> {
   switch (model) {
     case 'RAC_056905_WW':
       return [
-        new ActiveCharacteristic(platform, service, deviceId),
-        new SwingModeCharacteristic(platform, service, deviceId),
-        new RotationSpeedCharacteristic(platform, service, deviceId, 4),
+        new ActiveCharacteristic(platform, service, deviceId, thinqPlatform),
+        new SwingModeCharacteristic(platform, service, deviceId, thinqPlatform),
+        new RotationSpeedCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+          4,
+        ),
         new CoolingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
         new HeatingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
         new TargetHeaterCoolerStateCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
           true,
         ),
-        new CurrentTemperatureCharacteristic(platform, service, deviceId),
+        new CurrentTemperatureCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
       ]
     // LW8017ERSM -- 3 fan modes
     // LW1517IVSM -- 4 fan modes
     case 'WIN_056905_WW':
       return [
-        new ActiveCharacteristic(platform, service, deviceId),
-        new RotationSpeedCharacteristic(platform, service, deviceId),
+        new ActiveCharacteristic(platform, service, deviceId, thinqPlatform),
+        new RotationSpeedCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
         new CoolingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
         new HeatingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
-        new TargetHeaterCoolerStateCharacteristic(platform, service, deviceId),
-        new CurrentTemperatureCharacteristic(platform, service, deviceId),
+        new TargetHeaterCoolerStateCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
+        new CurrentTemperatureCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
       ]
     // LP1419IVSM
     case 'POT_056905_WW':
@@ -72,21 +105,38 @@ export default function getCharacteristicsForModel(
         )
       }
       return [
-        new ActiveCharacteristic(platform, service, deviceId),
-        new SwingModeCharacteristic(platform, service, deviceId),
-        new RotationSpeedCharacteristic(platform, service, deviceId),
+        new ActiveCharacteristic(platform, service, deviceId, thinqPlatform),
+        new SwingModeCharacteristic(platform, service, deviceId, thinqPlatform),
+        new RotationSpeedCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
         new CoolingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
         new HeatingThresholdTemperatureCharacteristic(
           platform,
           service,
           deviceId,
+          thinqPlatform,
         ),
-        new TargetHeaterCoolerStateCharacteristic(platform, service, deviceId),
-        new CurrentTemperatureCharacteristic(platform, service, deviceId),
+        new TargetHeaterCoolerStateCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
+        new CurrentTemperatureCharacteristic(
+          platform,
+          service,
+          deviceId,
+          thinqPlatform,
+        ),
       ]
   }
 }
